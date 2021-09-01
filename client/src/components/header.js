@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Box, Center, Text } from '@chakra-ui/layout';
 
 

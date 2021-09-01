@@ -2,12 +2,7 @@ import * as React from "react"
 import { ChakraProvider } from "@chakra-ui/react"
 import axios from 'axios'
 import Header from './components/header';
-//import Upload from './components/upload';
-
-require('react-dom');
-window.React2 = require('react');
-console.log(window.React1 === window.React2);
-
+import SubmitLink from "./components/submitLink";
 
 class Upload extends React.Component {
 
@@ -36,24 +31,26 @@ class Upload extends React.Component {
   fileData = () => {
 
     if (this.state.selectedFile) {
+      if (this.state.selectedFile.type === "image/jpeg" || this.state.selectedFile.type === "image/png") {
+        return (
+          <div>
+            <h2>File Details:</h2>
 
-      return (
-        <div>
-          <h2>File Details:</h2>
+            <p>File Name: {this.state.selectedFile.name}</p>
+            <p>File Type: {this.state.selectedFile.type}</p>
 
-          <p>File Name: {this.state.selectedFile.name}</p>
+          </div>
+        );
 
+      } else {
+        return (
+          <div>
+            <br />
+            <h4>Please choose an image to upload</h4>
+          </div>
 
-          <p>File Type: {this.state.selectedFile.type}</p>
-
-
-          <p>
-            Last Modified:{" "}
-            {this.state.selectedFile.lastModifiedDate.toDateString()}
-          </p>
-
-        </div>
-      );
+        )
+      }
     } else {
       return (
         <div>
@@ -84,6 +81,7 @@ function App() {
   return (
     <ChakraProvider>
       <Header />
+      <SubmitLink />
       <Upload />
     </ChakraProvider>
   );
