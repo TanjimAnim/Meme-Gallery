@@ -1,12 +1,20 @@
 const express = require('express')
-const { models } = require('mongoose')
-const imageModel = require('/models.js')
+const imageModel = require('../models/models.js')
 const router = express.Router()
 const multer = require('multer')
 
 
+var date = Date.now()
+
 router.get('/', (req, res) => {
     res.send('this works')
+
+})
+
+router.post('/', (req, res) => {
+
+    console.log("connected to React")
+    res.redirect('/')
 
 })
 
@@ -16,14 +24,21 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.fieldname + '-' + date)
     }
 });
 
-var upload = multer({ storage: storage }).single('image');
+var upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 3
+    }
+}).single('image');
 
 
-router.post('/upload', upload, (req, res, next) => {
+router.post('/upload', upload, (req, res) => {
+    console.log(req.file)
+
 
 });
 

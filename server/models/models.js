@@ -14,8 +14,5 @@ var imageSchema = new mongoose.Schema({
     }
 });
 
-//Image is a model which has a schema imageSchema
 
-var Image = new mongoose.model('Image', imageSchema);
-
-module.exports = Image
+module.exports = new mongoose.model('Image', imageSchema);

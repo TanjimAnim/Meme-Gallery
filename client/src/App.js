@@ -1,8 +1,18 @@
 import * as React from "react"
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, Button, ButtonGroup } from "@chakra-ui/react"
 import axios from 'axios'
 import Header from './components/header';
 import SubmitLink from "./components/submitLink";
+
+function NodejsConnect() {
+  return (
+    <form action="../../" method="post"
+      className="form">
+      <Button colorScheme="teal" size="sm" type="submit">Connected?</Button>
+    </form>
+  )
+}
+
 
 class Upload extends React.Component {
 
@@ -19,7 +29,7 @@ class Upload extends React.Component {
   fileUploadHandler = () => {
     const fd = new FormData()
     fd.append('image', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post('', fd)
+    axios.post('/upload', fd)
       .then(res => {
         console.log(res)
       })
@@ -38,6 +48,9 @@ class Upload extends React.Component {
 
             <p>File Name: {this.state.selectedFile.name}</p>
             <p>File Type: {this.state.selectedFile.type}</p>
+            <Button colorScheme="teal" size="sm" onClick={this.fileUploadHandler}>
+              Upload!
+            </Button>
 
           </div>
         );
@@ -66,9 +79,6 @@ class Upload extends React.Component {
       <div>
         <div>
           <input type="file" onChange={this.fileSelectedHandler} />
-          <button onClick={this.fileUploadHandler}>
-            Upload!
-          </button>
         </div>
         {this.fileData()}
       </div>
@@ -80,6 +90,7 @@ class Upload extends React.Component {
 function App() {
   return (
     <ChakraProvider>
+      <NodejsConnect />
       <Header />
       <SubmitLink />
       <Upload />
