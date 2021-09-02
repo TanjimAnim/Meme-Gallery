@@ -8,7 +8,7 @@ var imageSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
-    createdAt: {
+    postedAt: {
         type: Date,
         default: new Date()
     }

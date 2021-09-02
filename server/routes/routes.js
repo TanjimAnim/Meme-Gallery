@@ -4,7 +4,9 @@ const router = express.Router()
 const multer = require('multer')
 
 
-var date = Date.now()
+
+var date = new Date()
+var currentDate = date.toLocaleDateString()
 
 router.get('/', (req, res) => {
     res.send('this works')
@@ -24,7 +26,7 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + date)
+        cb(null, file.fieldname + '-' + Date.now())
     }
 });
 
@@ -36,8 +38,17 @@ var upload = multer({
 }).single('image');
 
 
-router.post('/upload', upload, (req, res) => {
+router.post('/upload', upload, async (req, res) => {
     console.log(req.file)
+    var saveImage = new imageModel()
+    saveImage.img.data = req.file.path;
+    saveImage.img.contentType = req.file.mimetype;
+    saveImage.postedAt = currentDate
+    console.log(saveImage)
+    await saveImage.save(function (err, result) {
+        if (err) return console.error(err);
+        else console.log(result)
+    })
 
 
 });
