@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var imageSchema = new mongoose.Schema({
 
-    name: String,
+
     img:
     {
         data: Buffer,

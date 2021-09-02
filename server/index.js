@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require("dotenv");
-const multer = require('multer')
+//const multer = require('multer')
 const routes = require('./routes/routes.js')
 var imgModel = require('./models.js');
 
@@ -23,18 +23,8 @@ mongoose.connect(process.env.CONNECTION_URL, {
     .then(() => console.log('Connected to database'))
     .catch((error) => console.log(error.message))
 
-//multer for storing uploaded files
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
 
-var upload = multer({ storage: storage }).single('image');
 
 
 
