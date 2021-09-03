@@ -8,25 +8,37 @@ function arrayBufferToBase64(buffer) {
     return window.btoa(binary);
 };
 
-function getImage() {
-    fetch('/').then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                console.error(data.error);
-                return "Error";
-            } else {
-                return data.img;
-            }
-        });
-}
-function DisplayImage() {
-    console.log(getImage)
-    return (
-        <Box>
-            here are the memes
 
-        </Box>
-    )
+class DisplayImage extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            img: ''
+        }
+    }
+    componentDidMount() {
+        fetch('/')
+            .then((res) => res.json())
+            .then((data) => {
+
+                var base64Flag = 'data:image/jpeg;base64,';
+                var imageStr = arrayBufferToBase64(data.img.data.data);
+                console.log(data)
+                this.setState({
+                    img: base64Flag + imageStr
+
+                })
+            })
+    }
+    render() {
+
+        return (
+            <img
+                src={this.state.img}
+                alt='Helpful alt text' />
+        )
+    }
 }
 
 export default DisplayImage;
