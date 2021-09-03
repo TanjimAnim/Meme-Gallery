@@ -8,17 +8,24 @@ const multer = require('multer')
 var date = new Date()
 var currentDate = date.toLocaleDateString()
 
+//  the GET request handler that provides the images
+
 router.get('/', (req, res) => {
-    res.send('this works')
+    imageModel.find({}, (err, img) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            console.log(img)
+            res.contentType('json');
+            res.send(img);
+        }
+    }).sort({ createdAt: 'desc' });
+});
 
-})
 
-router.post('/', (req, res) => {
 
-    console.log("connected to React")
-    res.redirect('/')
-
-})
 
 //multer for storing uploaded files
 var storage = multer.diskStorage({
@@ -37,7 +44,7 @@ var upload = multer({
     }
 }).single('image');
 
-
+//post api for saving image in database
 router.post('/upload', upload, async (req, res) => {
     console.log(req.file)
     var saveImage = new imageModel()

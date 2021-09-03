@@ -1,8 +1,12 @@
 import * as React from "react"
 import { ChakraProvider, Button, ButtonGroup } from "@chakra-ui/react"
 import axios from 'axios'
+
+
 import Header from './components/header';
 import SubmitLink from "./components/submitLink";
+import DisplayImage from "./components/displayImg"
+
 
 function NodejsConnect() {
   return (
@@ -94,6 +98,7 @@ function App() {
       <Header />
       <SubmitLink />
       <Upload />
+      <DisplayImage />
     </ChakraProvider>
   );
 }
