@@ -18,13 +18,13 @@ class DisplayImage extends React.Component {
         }
     }
     componentDidMount() {
-        fetch('/')
+        fetch('/image_data')
             .then((res) => res.json())
             .then((data) => {
-
-                var base64Flag = 'data:image/jpeg;base64,';
-                var imageStr = arrayBufferToBase64(data.img.data.data);
                 console.log(data)
+                var base64Flag = 'data:image/jpeg;base64,';
+                var imageStr = arrayBufferToBase64(data.img.data);
+
                 this.setState({
                     img: base64Flag + imageStr
 
