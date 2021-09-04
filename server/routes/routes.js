@@ -2,29 +2,10 @@ const express = require('express')
 const imageModel = require('../models/models.js')
 const router = express.Router()
 const multer = require('multer')
-
-
+const fs = require('fs')
 
 var date = new Date()
 var currentDate = date.toLocaleDateString()
-
-//  the GET request handler that provides the images
-
-router.get('/', (req, res) => {
-    imageModel.find({}, (err, img) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            console.log(img)
-            res.contentType('json');
-            res.send(img);
-        }
-    }).sort({ createdAt: 'desc' });
-});
-
-
 
 
 //multer for storing uploaded files
@@ -46,21 +27,64 @@ var upload = multer({
 
 //post api for saving image in database
 router.post('/upload', upload, async (req, res) => {
-    console.log(req.file)
     var saveImage = new imageModel()
-    saveImage.img.data = req.file.path;
+    saveImage.img.data = req.file.filename;
     saveImage.img.contentType = req.file.mimetype;
     saveImage.postedAt = currentDate
     console.log(saveImage)
     await saveImage.save(function (err, result) {
         if (err) return console.error(err);
-        else console.log(result)
+        else {
+            console.log(result)
+            res.sendStatus(202)
+        }
     })
+
 
 
 });
 
+router.post('/submitlink', async (req, res) => {
 
+    let saveImageFromUrl = new imageModel()
+    saveImageFromUrl.img.data = req.body.url
+    saveImageFromUrl.postedAt = currentDate
+    await saveImageFromUrl.save(function (err, result) {
+        if (err) return console.error(err);
+        else {
+            console.log(result)
+            res.sendStatus(202)
+
+        }
+    })
+
+})
+
+
+//  the GET request handler that provides the images
+router.get('/images', (req, res) => {
+    imageModel.find({}, (err, img) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            console.log(img)
+            res.contentType('json');
+            res.send(img);
+        }
+    }).sort({ createdAt: 'desc' });
+});
+
+//delete image
+router.post('/delete/:propertyId', (req, res) => {
+    imageModel.findByIdAndRemove(req.params.propertyId, req.body, function (err, data) {
+        if (!err) {
+            console.log("Deleted");
+            res.sendStatus(202)
+        }
+    });
+})
 
 
 module.exports = router

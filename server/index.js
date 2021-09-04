@@ -12,7 +12,8 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json({ limit: '50mb' }));
 app.use('/', routes)
-app.use('/upload', routes)
+//app.use('/upload', routes)
+app.use(express.static('./uploads')) //serves static file to path
 
 
 //connection to mongoDB

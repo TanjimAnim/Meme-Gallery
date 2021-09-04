@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useCallback, useEffect, useState } from "react"
 import { ChakraProvider, Button, ButtonGroup } from "@chakra-ui/react"
 import axios from 'axios'
 
@@ -6,16 +7,6 @@ import axios from 'axios'
 import Header from './components/header';
 import SubmitLink from "./components/submitLink";
 import DisplayImage from "./components/displayImg"
-
-
-function NodejsConnect() {
-  return (
-    <form action="../../" method="post"
-      className="form">
-      <Button colorScheme="teal" size="sm" type="submit">Connected?</Button>
-    </form>
-  )
-}
 
 
 class Upload extends React.Component {
@@ -36,12 +27,19 @@ class Upload extends React.Component {
     axios.post('/upload', fd)
       .then(res => {
         console.log(res)
+        this.props.onSuccessfulUpload()
+        this.setState({
+          selectedFile: null
+        })
       })
       .catch(error => {
         console.log(error)
       })
 
   }
+
+
+
   fileData = () => {
 
     if (this.state.selectedFile) {
@@ -92,13 +90,36 @@ class Upload extends React.Component {
 }
 
 function App() {
+  const [images, setImages] = useState([])
+
+  const refreshImages = useCallback(() => {
+    fetch('/images')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+
+        setImages(
+          data.map(item => {
+            if (item.img.data.slice(0, 7) === "images-") {
+              item.img.data = "/" + item.img.data
+            } return item
+          })
+
+        )
+      })
+  }, [])
+
+  useEffect(() => {
+    refreshImages()
+  }, [])
+
   return (
     <ChakraProvider>
-      <NodejsConnect />
+
       <Header />
-      <SubmitLink />
-      <Upload />
-      <DisplayImage />
+      <SubmitLink onSuccessfulUpload={refreshImages} />
+      <Upload onSuccessfulUpload={refreshImages} />
+      <DisplayImage images={images} onSuccessfulUpload={refreshImages} />
     </ChakraProvider>
   );
 }

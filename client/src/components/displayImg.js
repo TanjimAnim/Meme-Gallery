@@ -1,45 +1,40 @@
-import React from 'react';
-import { Box, Center, Text } from '@chakra-ui/layout';
-
-function arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => binary += String.fromCharCode(b));
-    return window.btoa(binary);
-};
-
+import React from "react";
+import { Box, Center, Text } from "@chakra-ui/layout";
+import { Button } from "@chakra-ui/button";
+import axios from "axios";
 
 class DisplayImage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            img: ''
-        }
-    }
-    componentDidMount() {
-        fetch('/image_data')
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                var base64Flag = 'data:image/jpeg;base64,';
-                var imageStr = arrayBufferToBase64(data.img.data);
+  onDelete = (id) => {
+    axios
+      .post(`/delete/${id}`)
+      .then((response) => {
+        this.props.onSuccessfulUpload();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-                this.setState({
-                    img: base64Flag + imageStr
-
-                })
-            })
-    }
-    render() {
-
-        return (
-            <img
-                src={this.state.img}
-                alt='Helpful alt text' />
-        )
-    }
+  render() {
+    return this.props.images.map((img) => {
+      return (
+        <Box>
+          <img src={`${img.img.data}`} />
+          <Button
+            onClick={() => {
+              this.onDelete(img._id);
+            }}
+          >
+            Delete
+          </Button>
+        </Box>
+      );
+    });
+  }
 }
 
 export default DisplayImage;
-
