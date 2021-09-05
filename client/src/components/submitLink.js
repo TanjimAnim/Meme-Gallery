@@ -6,6 +6,8 @@ import {
   FormHelperText,
   Input,
   Button,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
@@ -47,8 +49,20 @@ class SubmitLink extends React.Component {
           type='url'
           value={this.state.url}
           onChange={this.onInputChange}
+          width={{
+            base: "35%",
+            md: "40%",
+            xl: "50%",
+          }}
+          mt={5}
         />
-        <Button mt={4} colorScheme='teal' type='submit' onClick={this.onClick}>
+        <Button
+          mb={1}
+          ml={2}
+          colorScheme='teal'
+          type='submit'
+          onClick={this.onClick}
+        >
           Submit
         </Button>
       </FormControl>

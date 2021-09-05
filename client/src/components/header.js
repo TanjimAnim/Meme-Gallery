@@ -5,9 +5,9 @@ function Header() {
   return (
     <Box
       width={{
-        base: "65%",
-        md: "70%",
-        xl: "80%",
+        base: "33%",
+        md: "35%",
+        xl: "38%",
       }}
       border='10px'
       boxShadow='md'
@@ -17,8 +17,15 @@ function Header() {
       mx='auto'
     >
       <Center>
-        <Text>
-          <h1>Meme Gallery</h1>
+        <Text
+          fontSize={{
+            base: "lg",
+            md: "2xl",
+            xl: "3xl",
+          }}
+          fontWeight='bold'
+        >
+          Meme Gallery
         </Text>
       </Center>
     </Box>
