@@ -34,6 +34,7 @@ class Upload extends React.Component {
       })
       .catch((error) => {
         this.setState({
+          selectedFile: null,
           error: error.response.data.error,
         });
       });

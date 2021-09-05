@@ -1,14 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {
-  Box,
-  Image,
-  CloseButton,
-  HStack,
-  VStack,
-  Stack,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Image, CloseButton, Flex } from "@chakra-ui/react";
 
 class DisplayImage extends React.Component {
   constructor(props) {

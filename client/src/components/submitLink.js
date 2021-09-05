@@ -1,8 +1,6 @@
-import react from "react";
-import { Box, FormControl, Input, Button } from "@chakra-ui/react";
+import { FormControl, Input, Button } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
-import DisplayImage from "./displayImg";
 
 class SubmitLink extends React.Component {
   constructor(props) {
