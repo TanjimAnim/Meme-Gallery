@@ -112,7 +112,11 @@ function App() {
       <Header />
       <Flex
         mt={4}
-        direction='row'
+        direction={{
+          base: "column",
+          md: "row",
+          xl: "row",
+        }}
         alignItems='center'
         justifyContent='space-between'
       >

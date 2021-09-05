@@ -42,7 +42,7 @@ class SubmitLink extends React.Component {
           value={this.state.url}
           onChange={this.onInputChange}
           width={{
-            base: "50%",
+            base: "80%",
             md: "55%",
             xl: "60%",
           }}
