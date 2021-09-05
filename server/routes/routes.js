@@ -22,6 +22,10 @@ var upload = multer({
   limits: {
     fileSize: 1024 * 1024 * 3,
   },
+  onError: function (err, next) {
+    console.log("error", err);
+    next(err);
+  },
 }).single("image");
 
 //post api for saving image in database

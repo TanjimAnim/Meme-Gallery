@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useState } from "react";
-import { ChakraProvider, Button, Image } from "@chakra-ui/react";
+import { ChakraProvider, Button, Flex } from "@chakra-ui/react";
 import axios from "axios";
 
 import Header from "./components/header";
@@ -10,6 +10,7 @@ import DisplayImage from "./components/displayImg";
 class Upload extends React.Component {
   state = {
     selectedFile: null,
+    error: null,
   };
 
   fileSelectedHandler = (event) => {
@@ -28,10 +29,13 @@ class Upload extends React.Component {
         this.props.onSuccessfulUpload();
         this.setState({
           selectedFile: null,
+          error: null,
         });
       })
       .catch((error) => {
-        console.log(error);
+        this.setState({
+          error: error.response.data.error,
+        });
       });
   };
 
@@ -43,10 +47,7 @@ class Upload extends React.Component {
       ) {
         return (
           <div>
-            <h2>File Details:</h2>
-
-            <p>File Name: {this.state.selectedFile.name}</p>
-            <p>File Type: {this.state.selectedFile.type}</p>
+            {this.state.error && <div>file too large!!</div>}
             <Button
               colorScheme='teal'
               size='sm'
@@ -59,7 +60,6 @@ class Upload extends React.Component {
       } else {
         return (
           <div>
-            <br />
             <h4>Please choose an image to upload</h4>
           </div>
         );
@@ -67,8 +67,7 @@ class Upload extends React.Component {
     } else {
       return (
         <div>
-          <br />
-          <h4>Choose before Pressing the Upload button</h4>
+          <h4>Choose Photos</h4>
         </div>
       );
     }
@@ -77,9 +76,7 @@ class Upload extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <input type='file' onChange={this.fileSelectedHandler} />
-        </div>
+        <input type='file' onChange={this.fileSelectedHandler} />
         {this.fileData()}
       </div>
     );
@@ -113,8 +110,15 @@ function App() {
   return (
     <ChakraProvider>
       <Header />
-      <SubmitLink onSuccessfulUpload={refreshImages} />
-      <Upload onSuccessfulUpload={refreshImages} />
+      <Flex
+        mt={4}
+        direction='row'
+        alignItems='center'
+        justifyContent='space-between'
+      >
+        <SubmitLink onSuccessfulUpload={refreshImages} />
+        <Upload onSuccessfulUpload={refreshImages} />
+      </Flex>
       <DisplayImage images={images} onSuccessfulUpload={refreshImages} />
     </ChakraProvider>
   );
