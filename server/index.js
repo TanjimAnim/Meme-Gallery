@@ -32,6 +32,4 @@ mongoose
   .catch((error) => console.log(error.message));
 
 //app listening
-app.listen(5000, () => {
-  console.log("app is listening through port 5000");
-});
+app.listen(process.env.PORT || 5000);
