@@ -3,10 +3,6 @@ import axios from "axios";
 import { Box, Image, CloseButton, Flex } from "@chakra-ui/react";
 
 class DisplayImage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   onDelete = (id) => {
     axios
       .post(`/delete/${id}`)
