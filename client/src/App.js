@@ -97,7 +97,7 @@ function App() {
         setImages(
           data.map((item) => {
             if (item.img.data.slice(0, 6) === "image-") {
-              item.img.data = baseUrl + item.img.data;
+              item.img.data = baseUrl + "/" + item.img.data;
             }
             return item;
           })
