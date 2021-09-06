@@ -6,6 +6,7 @@ import axios from "axios";
 import Header from "./components/header";
 import SubmitLink from "./components/submitLink";
 import DisplayImage from "./components/displayImg";
+import { baseUrl } from "./config";
 
 class Upload extends React.Component {
   state = {
@@ -23,7 +24,7 @@ class Upload extends React.Component {
     const fd = new FormData();
     fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
     axios
-      .post("/upload", fd)
+      .post(`${baseUrl}/upload`, fd)
       .then((res) => {
         console.log(res);
         this.props.onSuccessfulUpload();
@@ -88,7 +89,7 @@ function App() {
   const [images, setImages] = useState([]);
 
   const refreshImages = useCallback(() => {
-    fetch("/images")
+    fetch(`${baseUrl}/images`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -96,7 +97,7 @@ function App() {
         setImages(
           data.map((item) => {
             if (item.img.data.slice(0, 7) === "images-") {
-              item.img.data = "/" + item.img.data;
+              item.img.data = baseUrl + item.img.data;
             }
             return item;
           })

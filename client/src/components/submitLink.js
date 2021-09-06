@@ -1,6 +1,7 @@
 import { FormControl, Input, Button } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
+import { baseUrl } from "../config";
 
 class SubmitLink extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class SubmitLink extends React.Component {
   };
   onClick = () => {
     axios
-      .post("/submitlink", {
+      .post(`${baseUrl}/submitlink`, {
         url: this.state.url,
       })
       .then((response) => {

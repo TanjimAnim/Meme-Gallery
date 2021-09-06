@@ -1,11 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { Box, Image, CloseButton, Flex } from "@chakra-ui/react";
+import { baseUrl } from "../config";
 
 class DisplayImage extends React.Component {
   onDelete = (id) => {
     axios
-      .post(`/delete/${id}`)
+      .post(`${baseUrl}/delete/${id}`)
       .then((response) => {
         this.props.onSuccessfulUpload();
       })
