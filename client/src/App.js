@@ -106,7 +106,7 @@ function App() {
 
   useEffect(() => {
     refreshImages();
-  }, []);
+  }, [refreshImages]);
 
   return (
     <ChakraProvider>
