@@ -22,15 +22,23 @@ class DisplayImage extends React.Component {
         wrap='wrap'
         mt={3}
         alignItems='center'
-        justifyContent='space-evenly'
+        justifyContent='space-around'
       >
         {this.props.images.map((img) => {
           return (
             <Box
               position='relative'
               width={{ base: "100%", md: "50%", xl: "40%" }}
+              height='50%'
+              mt={4}
+              ml={4}
             >
-              <Image borderRadius='3px' src={`${img.img.data}`} width='100%' />
+              <Image
+                src={`${img.img.data}`}
+                fit='cover'
+                borderRadius={2}
+                maxHeight='50%'
+              />
               <CloseButton
                 size='sm'
                 onClick={() => {

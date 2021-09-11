@@ -5,7 +5,7 @@ function Header() {
   return (
     <Box
       width={{
-        base: "33%",
+        base: "45%",
         md: "35%",
         xl: "38%",
       }}
@@ -19,9 +19,9 @@ function Header() {
       <Center>
         <Text
           fontSize={{
-            base: "lg",
-            md: "2xl",
-            xl: "3xl",
+            base: "md",
+            md: "xl",
+            xl: "2xl",
           }}
           fontWeight='bold'
         >
