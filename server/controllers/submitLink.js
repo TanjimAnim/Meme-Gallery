@@ -12,7 +12,6 @@ const submitLink = async (req, res) => {
   await saveImageFromUrl.save(function (err, result) {
     if (err) return console.error(err);
     else {
-      console.log(result);
       res.sendStatus(202);
     }
   });

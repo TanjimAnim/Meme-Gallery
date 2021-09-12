@@ -7,7 +7,6 @@ const deleteImage = (req, res) => {
     req.body,
     function (err, data) {
       if (!err) {
-        console.log("Deleted");
         res.sendStatus(202);
       }
     }
