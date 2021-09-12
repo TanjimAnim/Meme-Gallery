@@ -19,9 +19,9 @@ function Header() {
       <Center>
         <Text
           fontSize={{
-            base: "md",
-            md: "xl",
-            xl: "2xl",
+            base: "lg",
+            md: "2xl",
+            xl: "3xl",
           }}
           fontWeight='bold'
         >

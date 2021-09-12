@@ -45,14 +45,19 @@ class SubmitLink extends React.Component {
             md: "55%",
             xl: "60%",
           }}
-          ml={3}
+          ml={{
+            base: "5%",
+            md: "5%",
+            xl: "4%",
+          }}
         />
         <Button
-          ml={3}
+          ml={2}
           mb={1}
           colorScheme='teal'
           type='submit'
           onClick={this.onClick}
+          size='md'
         >
           Submit
         </Button>

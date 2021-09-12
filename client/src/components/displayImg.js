@@ -28,10 +28,11 @@ class DisplayImage extends React.Component {
           return (
             <Box
               position='relative'
-              width={{ base: "100%", md: "50%", xl: "40%" }}
+              width={{ base: "90%", md: "50%", xl: "40%" }}
               height='50%'
               mt={4}
               ml={4}
+              mx='auto'
             >
               <Image
                 src={`${img.img.data}`}
