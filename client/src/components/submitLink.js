@@ -10,12 +10,23 @@ class SubmitLink extends React.Component {
       url: "",
     };
   }
+  isUrlValid = () => {
+    const { url } = this.state;
+    const res = url.match(
+      /(http(s)?:\/\/.)?(www\.)?[\w#%+.:=@~-]{2,256}\.[a-z]{2,6}\b([\w#%&+./:=?@~-]*)/g
+    );
+    if (res === null) {
+      return true;
+    }
+    return false;
+  };
 
   onInputChange = (event) => {
     this.setState({
       url: event.target.value,
     });
   };
+
   onClick = () => {
     axios
       .post(`${baseUrl}/submitlink`, {
@@ -58,6 +69,7 @@ class SubmitLink extends React.Component {
           type='submit'
           onClick={this.onClick}
           size='md'
+          isDisabled={this.isUrlValid()}
         >
           Submit
         </Button>
