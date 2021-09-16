@@ -9,7 +9,6 @@ const getImages = (req, res) => {
         console.log(err);
         res.status(500).send("An error occurred", err);
       } else {
-        console.log(img);
         res.contentType("json");
         res.send(img);
       }

@@ -11,34 +11,34 @@ var currentDate = date.toLocaleDateString();
 
 const submitLink = async (req, res) => {
   const { url } = req.body;
+  var imageData;
   https.get(url, (response) => {
     const chunks = [];
     response.on("data", (chunk) => {
       chunks.push(chunk);
     });
-    response.on("end", () => {
+    response.on("end", async () => {
       const resultBuffer = Buffer.concat(chunks);
-      const imageData = imageType(resultBuffer);
-      console.log(imageData.mime);
+      imageData = imageType(resultBuffer);
+      if (
+        imageData.mime === "image/jpeg" ||
+        imageData.mime === "image/jpg" ||
+        imageData.mime === "image/png"
+      ) {
+        let saveImageFromUrl = new imageModel();
+        saveImageFromUrl.img.data = req.body.url;
+        saveImageFromUrl.postedAt = currentDate;
+        await saveImageFromUrl.save(function (err, result) {
+          if (err) return console.error(err);
+          else {
+            res.sendStatus(202);
+          }
+        });
+      } else {
+        console.log("some error occured");
+      }
     });
   });
-  // https.get(url, (response) => {
-  //   response.on("readable", () => {
-  //     const chunk = response.read(imageType.minimumBytes);
-  //     response.destroy();
-
-  //     console.log(imageType(chunk));
-  //   });
-  // });
-  // let saveImageFromUrl = new imageModel();
-  // saveImageFromUrl.img.data = req.body.url;
-  // saveImageFromUrl.postedAt = currentDate;
-  // await saveImageFromUrl.save(function (err, result) {
-  //   if (err) return console.error(err);
-  //   else {
-  //     res.sendStatus(202);
-  //   }
-  // });
 };
 
 module.exports = submitLink;
