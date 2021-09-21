@@ -18,27 +18,28 @@ class DisplayImage extends React.Component {
   render() {
     return (
       <Flex
-        direction='row'
+        flexDirection='row'
+        alignItems='center'
+        justifyContent='space-evenly'
         wrap='wrap'
         mt={3}
-        alignItems='center'
-        justifyContent='space-around'
       >
         {this.props.images.map((img) => {
           return (
             <Box
               position='relative'
-              width={{ base: "90%", md: "50%", xl: "40%" }}
-              height='50%'
               mt={4}
-              ml={4}
+              ml={2}
               mx='auto'
+              my='auto'
+              mb={3}
+              width={{ base: "90%", md: "50%", xl: "30%" }}
             >
               <Image
                 src={`${img.img.data}`}
                 fit='cover'
-                borderRadius={2}
-                maxHeight='50%'
+                borderRadius={3}
+                boxSize={{ base: "100%", md: "60%", xl: "70%" }}
               />
               <CloseButton
                 size='sm'
