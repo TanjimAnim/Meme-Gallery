@@ -13,7 +13,7 @@ const getImages = (req, res) => {
         res.send(img);
       }
     })
-    .sort({ createdAt: "desc" });
+    .sort({ postedAt: "desc" });
 };
 
 module.exports = getImages;
