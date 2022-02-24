@@ -25,7 +25,6 @@ export default function SubmitLink(props) {
         url: url,
       })
       .then((response) => {
-        console.log(response);
         props.onSuccessfulUpload();
         setUrl("");
       })

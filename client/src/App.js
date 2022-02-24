@@ -15,8 +15,6 @@ function App() {
     fetch(`${baseUrl}/images`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         setImages(
           data.map((item) => {
             if (item.img.data.slice(0, 6) === "image-") {
