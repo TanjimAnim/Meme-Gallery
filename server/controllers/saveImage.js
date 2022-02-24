@@ -2,10 +2,9 @@
 
 const imageModel = require("../models/models.js");
 
-var date = new Date();
-var currentDate = date.toLocaleDateString();
-
 const postImage = async (req, res) => {
+  var date = new Date();
+  var currentDate = date.toLocaleString();
   var saveImage = new imageModel();
   saveImage.img.data = req.file.filename;
   saveImage.img.contentType = req.file.mimetype;

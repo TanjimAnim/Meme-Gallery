@@ -6,9 +6,6 @@ const imageType = require("image-type");
 
 const imageModel = require("../models/models.js");
 
-var date = new Date();
-var currentDate = date.toLocaleDateString();
-
 const submitLink = async (req, res) => {
   const { url } = req.body;
   var imageData;
@@ -27,6 +24,8 @@ const submitLink = async (req, res) => {
       ) {
         let saveImageFromUrl = new imageModel();
         saveImageFromUrl.img.data = req.body.url;
+        var date = new Date();
+        var currentDate = date.toLocaleString();
         saveImageFromUrl.postedAt = currentDate;
         await saveImageFromUrl.save(function (err, result) {
           if (err) return console.error(err);
