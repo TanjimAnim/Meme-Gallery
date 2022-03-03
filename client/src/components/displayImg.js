@@ -1,13 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {
-  Box,
-  Image,
-  CloseButton,
-  Flex,
-  Center,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Image, CloseButton, Spinner } from "@chakra-ui/react";
 import { baseUrl } from "../config";
 
 export default function DisplayImage(props) {
@@ -35,55 +28,48 @@ export default function DisplayImage(props) {
           />
         </Box>
       ) : (
-        <Flex
-          flexDirection='row'
-          alignItems='center'
-          justifyContent='space-evenly'
-          wrap='wrap'
-          mt={3}
-        >
+        <Box display='flex' flexWrap='wrap' mt={3}>
           {props.images.map((img) => {
             return (
               <Box
                 key={img._id}
                 position='relative'
-                mt={4}
-                ml={2}
-                mx='auto'
-                my='auto'
-                mb={3}
-                width={{ base: "90%", md: "50%", xl: "30%" }}
+                flexGrow='1'
+                margin='2px'
+                height='200px'
               >
-                <Center>
-                  <Image
-                    src={`${img.img.data}`}
-                    fit='cover'
-                    borderRadius={3}
-                    boxSize={{ base: "100%", md: "50%", xl: "70%" }}
-                  />
+                <Image
+                  src={`${img.img.data}`}
+                  fit='cover'
+                  borderRadius={3}
+                  height='200px'
+                  flexGrow='1'
+                  minWidth='100%'
+                  maxWidth='100%'
+                  verticalAlign='bottom'
+                />
 
-                  <CloseButton
-                    size='sm'
-                    left={{ base: "0%", md: "25%", xl: "15%" }}
-                    onClick={() => {
-                      onDelete(img._id);
-                    }}
-                    style={{
-                      position: "absolute",
-                      top: "0%",
-                      width: 20,
-                      color: "black",
-                      background: "#FFFFF0",
-                      hover: {
-                        background: "teal",
-                      },
-                    }}
-                  />
-                </Center>
+                <CloseButton
+                  size='sm'
+                  left='0%'
+                  onClick={() => {
+                    onDelete(img._id);
+                  }}
+                  style={{
+                    position: "absolute",
+                    top: "0%",
+                    width: 20,
+                    color: "black",
+                    background: "#FFFFF0",
+                    hover: {
+                      background: "teal",
+                    },
+                  }}
+                />
               </Box>
             );
           })}
-        </Flex>
+        </Box>
       )}
     </>
   );
