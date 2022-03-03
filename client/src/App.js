@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useState } from "react";
-import { ChakraProvider, Flex } from "@chakra-ui/react";
+import { ChakraProvider, Flex, Spinner, Box, Text } from "@chakra-ui/react";
 import Upload from "./components/upload";
 
 import Header from "./components/header";
@@ -10,6 +10,7 @@ import { baseUrl } from "./config";
 
 function App() {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const refreshImages = useCallback(() => {
     fetch(`${baseUrl}/images`)
@@ -23,6 +24,7 @@ function App() {
             return item;
           })
         );
+        setIsLoading(false);
       });
   }, []);
 
@@ -46,7 +48,29 @@ function App() {
         <SubmitLink onSuccessfulUpload={refreshImages} />
         <Upload onSuccessfulUpload={refreshImages} />
       </Flex>
-      <DisplayImage images={images} onSuccessfulUpload={refreshImages} />
+      {isLoading ? (
+        <Box
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+          height='100%'
+        >
+          <Text>Loading</Text>
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
+        </Box>
+      ) : (
+        <DisplayImage
+          images={images}
+          onSuccessfulUpload={refreshImages}
+          isLoading={isLoading}
+        />
+      )}
     </ChakraProvider>
   );
 }
