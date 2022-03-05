@@ -28,24 +28,30 @@ export default function DisplayImage(props) {
           />
         </Box>
       ) : (
-        <Box display='flex' flexWrap='wrap' mt={3}>
+        <Box
+          display='flex'
+          flexWrap='wrap'
+          mt={3}
+          _after={{
+            content: `''`,
+            flexGrow: 999999999,
+          }}
+        >
           {props.images.map((img) => {
             return (
               <Box
                 key={img._id}
                 position='relative'
-                flexGrow='1'
+                flexGrow={`${(img.width * 200) / img.height}`}
                 margin='2px'
-                height='200px'
+                width={`${(img.width * 200) / img.height}px`}
               >
+                <i paddingBottom={`${(img.height / img.width) * 100}%`}></i>
                 <Image
                   src={`${img.img.data}`}
-                  fit='cover'
                   borderRadius={3}
-                  height='200px'
-                  flexGrow='1'
-                  minWidth='100%'
-                  maxWidth='100%'
+                  position='absolute'
+                  width='100%'
                   verticalAlign='bottom'
                 />
 
@@ -59,11 +65,9 @@ export default function DisplayImage(props) {
                     position: "absolute",
                     top: "0%",
                     width: 20,
-                    color: "black",
-                    background: "#FFFFF0",
-                    hover: {
-                      background: "teal",
-                    },
+                    color: "white",
+                    background: "black",
+                    borderRadius: "50%",
                   }}
                 />
               </Box>
