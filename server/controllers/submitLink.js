@@ -5,6 +5,7 @@ const imageType = require("image-type");
 // const fileTypeFromStream = require("file-type");
 
 const imageModel = require("../models/models.js");
+var sizeOf = require("image-size"); //for getting the dimensions of image
 
 const submitLink = async (req, res) => {
   const { url } = req.body;
@@ -17,6 +18,7 @@ const submitLink = async (req, res) => {
     response.on("end", async () => {
       const resultBuffer = Buffer.concat(chunks);
       imageData = imageType(resultBuffer);
+      const dimensions = sizeOf(resultBuffer);
       if (
         imageData.mime === "image/jpeg" ||
         imageData.mime === "image/jpg" ||
@@ -27,6 +29,8 @@ const submitLink = async (req, res) => {
         var date = new Date();
         var currentDate = date.toLocaleString();
         saveImageFromUrl.postedAt = currentDate;
+        saveImageFromUrl.height = dimensions.height;
+        saveImageFromUrl.width = dimensions.width;
         await saveImageFromUrl.save(function (err, result) {
           if (err) return console.error(err);
           else {
