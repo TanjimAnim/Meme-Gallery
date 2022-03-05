@@ -50,7 +50,6 @@ export default function DisplayImage(props) {
                 <Image
                   src={`${img.img.data}`}
                   borderRadius={3}
-                  position='absolute'
                   width='100%'
                   verticalAlign='bottom'
                 />
