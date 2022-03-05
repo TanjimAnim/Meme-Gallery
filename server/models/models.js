@@ -9,6 +9,14 @@ var imageSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  height: {
+    type: Number,
+    default: 200,
+  },
+  width: {
+    type: Number,
+    default: 200,
+  },
 });
 
 module.exports = new mongoose.model("Image", imageSchema);
